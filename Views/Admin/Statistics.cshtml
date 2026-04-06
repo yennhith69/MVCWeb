@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Thống Kê";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>📊 Thống Kê Doanh Thu</h2>
+    <a asp-action="Orders" class="btn btn-outline-secondary">← Quay lại</a>
+</div>
+
+<!-- Tổng quan -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-success shadow">
+            <div class="card-body text-center">
+                <div style="font-size:2rem">💰</div>
+                <h5 class="mt-2">Tổng Doanh Thu</h5>
+                <h3>$@ViewBag.TotalRevenue.ToString("N2")</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-primary shadow">
+            <div class="card-body text-center">
+                <div style="font-size:2rem">📦</div>
+                <h5 class="mt-2">Tổng Items Đã Bán</h5>
+                <h3>@ViewBag.TotalItemsSold</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning shadow">
+            <div class="card-body text-center">
+                <div style="font-size:2rem">🧾</div>
+                <h5 class="mt-2">Tổng Đơn Hàng</h5>
+                <h3>@ViewBag.TotalOrders</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top sản phẩm bán chạy -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">🏆 Top 5 Sản Phẩm Bán Chạy</h5>
+    </div>
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng đã bán</th>
+                    <th>Doanh thu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int rank = 1;
+                }
+                @foreach (var p in ViewBag.TopProducts)
+                {
+                    <tr>
+                        <td>
+                            @if (rank == 1)
+                            {
+                                <span>🥇</span>
+                            }
+                            else if (rank == 2)
+                            {
+
+                                <span>🥈</span>
+                            }
+                            else if (rank == 3)
+                            {
+
+                                <span>🥉</span>
+                            }
+                            else
+                            {
+
+                                <span>@rank</span>
+                            }
+                        </td>
+                        <td><strong>@p.ProductName</strong></td>
+                        <td>@p.TotalQty items</td>
+                        <td class="text-success fw-bold">$@p.TotalRevenue.ToString("N2")</td>
+                    </tr>
+                    rank++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Doanh thu theo nhân viên -->
+<div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">👥 Doanh Thu Theo Nhân Viên</h5>
+    </div>
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Nhân viên</th>
+                    <th>Số đơn xử lý</th>
+                    <th>Doanh thu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.RevenueByEmployee.Count == 0)
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted py-3">
+                            Chưa có dữ liệu. Hãy gán nhân viên cho các đơn hàng.
+                        </td>
+                    </tr>
+                }
+                @foreach (var e in ViewBag.RevenueByEmployee)
+                {
+                    <tr>
+                        <td><strong>@e.EmployeeName</strong></td>
+                        <td>@e.OrderCount đơn</td>
+                        <td class="text-success fw-bold">$@e.TotalRevenue.ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

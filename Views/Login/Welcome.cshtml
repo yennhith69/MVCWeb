@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="text-center mt-5">
+    <div style="font-size:4rem">👋</div>
+    <h1 class="mt-3">Xin chào, <span style="color:#c97b8a">@ViewBag.UserName</span>!</h1>
+    <p class="lead text-muted">Bạn đã đăng nhập thành công.</p>
+    <hr class="w-25 mx-auto" />
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a asp-controller="Products" asp-action="Search" class="btn btn-primary btn-lg">
+            🛍️ Mua sắm ngay
+        </a>
+        <a asp-controller="Login" asp-action="Logout" class="btn btn-outline-secondary btn-lg">
+            Đăng xuất
+        </a>
+    </div>
+</div>

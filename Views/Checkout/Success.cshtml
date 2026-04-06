@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Đặt hàng thành công";
+}
+
+<div class="text-center mt-5">
+    <div style="font-size:5rem">🎉</div>
+    <h1 class="mt-3" style="color:#c97b8a">Đặt Hàng Thành Công!</h1>
+    <p class="lead text-muted mt-2">Cảm ơn bạn đã mua hàng!</p>
+    <div class="alert alert-success d-inline-block px-5 mt-3">
+        Mã đơn hàng của bạn: <strong class="fs-4">#@ViewBag.OrderID</strong>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a asp-controller="Products" asp-action="Search"
+           class="btn btn-primary btn-lg">
+            🛍️ Tiếp tục mua sắm
+        </a>
+        <a asp-controller="Checkout" asp-action="MyOrders"
+           class="btn btn-outline-primary btn-lg">
+            📦 Xem đơn hàng của tôi
+        </a>
+    </div>
+</div>

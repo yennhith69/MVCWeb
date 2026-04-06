@@ -1,0 +1,79 @@
+﻿@model MVCShopping1.Models.ProductSearchViewModel
+@{
+    ViewData["Title"] = "Search Product";
+}
+
+<h2 class="mb-4">🔍 Tìm Kiếm Sản Phẩm</h2>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form asp-action="Search" method="post">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Danh mục</label>
+                    <select asp-for="Category" asp-items="Model.Categories"
+                            class="form-select">
+                        <option value="">-- Tất cả --</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label fw-bold">Tên sản phẩm</label>
+                    <input type="text" asp-for="SearchString" class="form-control"
+                           placeholder="Nhập tên sản phẩm..." />
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="🔍 Tìm kiếm"
+                           class="btn btn-primary w-100" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.Products != null && Model.Products.Any())
+{
+    <p class="text-muted">Tìm thấy <strong>@Model.Products.Count</strong> sản phẩm</p>
+    <table class="table table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Danh mục</th>
+                <th style="width:140px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>
+                        <strong>@item.ModelName</strong>
+                        <br /><small class="text-muted">@item.ModelNumber</small>
+                    </td>
+                    <td class="text-danger fw-bold">$@item.UnitCost</td>
+                    <td>
+                        <span class="badge" style="background:#c97b8a">
+                            @item.Category?.CategoryName
+                        </span>
+                    </td>
+                    <td>
+                        <form asp-action="AddToCart"
+                              asp-controller="ShoppingCart" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductID" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <button type="submit" class="btn btn-primary btn-sm w-100">
+                                🛒 Add to Cart
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.Products != null && !Model.Products.Any())
+{
+    <div class="alert alert-warning">
+        😕 Không tìm thấy sản phẩm nào. Thử từ khóa khác nhé!
+    </div>
+}

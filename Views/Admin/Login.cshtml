@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h4>🔐 Admin Panel</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Login" method="post">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.Error</div>
+                    }
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Username</label>
+                        <input type="text" name="username" class="form-control"
+                               placeholder="Nhập username..." />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Password</label>
+                        <input type="password" name="password" class="form-control"
+                               placeholder="Nhập password..." />
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-dark btn-lg">
+                            Đăng nhập Admin
+                        </button>
+                    </div>
+                </form>
+                <hr />
+                <p class="text-muted text-center small">
+                    Default: admin / admin123
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

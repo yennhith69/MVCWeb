@@ -1,0 +1,39 @@
+﻿@model MVCShopping1.Models.Order
+@{
+    ViewData["Title"] = "Sửa Đơn Hàng";
+}
+
+<h2 class="mb-4">✏️ Sửa Đơn Hàng #@Model.OrderID</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="EditOrder" method="post">
+            <input type="hidden" name="orderId" value="@Model.OrderID" />
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Khách hàng</label>
+                <input type="text" class="form-control"
+                       value="@Model.Customer?.FullName" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Gán Nhân Viên</label>
+                <select name="employeeId" asp-items="ViewBag.Employees"
+                        class="form-select">
+                    <option value="">-- Chưa gán --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Ngày Giao Hàng</label>
+                <input type="date" name="shipDate" class="form-control"
+                       value="@Model.ShipDate.ToString("yyyy-MM-dd")" />
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">💾 Lưu</button>
+                <a asp-action="Orders" class="btn btn-outline-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>

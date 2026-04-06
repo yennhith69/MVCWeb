@@ -1,0 +1,50 @@
+﻿@model List<MVCShopping1.Models.Order>
+@{
+    ViewData["Title"] = "Đơn Hàng Của Tôi";
+}
+
+<h2 class="mb-4">📦 Đơn Hàng Của Tôi</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày đặt</th>
+                        <th>Ngày giao dự kiến</th>
+                        <th style="width:130px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td><strong>#@order.OrderID</strong></td>
+                            <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@order.ShipDate.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <a asp-action="OrderDetails"
+                                   asp-route-orderId="@order.OrderID"
+                                   class="btn btn-outline-primary btn-sm">
+                                    Chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <div style="font-size:4rem">📭</div>
+        <h4 class="text-muted mt-3">Bạn chưa có đơn hàng nào</h4>
+        <a asp-controller="Products" asp-action="Search"
+           class="btn btn-primary mt-3">Đi mua sắm ngay</a>
+    </div>
+}

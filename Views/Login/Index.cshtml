@@ -1,0 +1,48 @@
+﻿@model MVCShopping1.Models.Customers
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-header" style="background:#c97b8a;color:white">
+                <h4 class="mb-0">🔐 Login</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Index">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="EmailAddress" class="form-label fw-bold"></label>
+                        <input asp-for="EmailAddress" class="form-control"
+                               placeholder="Nhập email..." />
+                        <span asp-validation-for="EmailAddress" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Password" class="form-label fw-bold"></label>
+                        <input asp-for="Password" class="form-control"
+                               type="password" placeholder="Nhập mật khẩu..." />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid">
+                        <input type="submit" value="Đăng nhập" class="btn btn-primary btn-lg" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.FullName))
+{
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5">
+            <div class="alert alert-success">
+                ✅ Xin chào: <strong>@Model.FullName</strong>
+            </div>
+        </div>
+    </div>
+}
